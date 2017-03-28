@@ -37,3 +37,19 @@
 >   process context.* This relationship that applications call into the kernel via 
 >   the system call interface is the fundamental manner in which applications 
 >   get work done.
+> **When hardware wants to communicate with the system, it issues an interrupt 
+> that literally interrupts the processor, which in turn interrupts the kernel:**
+> * A number identifies interrupts and the kernel uses
+>   this number to execute a specific interrupt handler to process and respond 
+>   to the interrupt. For example, as you type, the keyboard controller issues 
+>   an interrupt to let the system know that there is new data in the keyboard 
+>   buffer.The kernel notes the interrupt number of the incoming interrupt and 
+>   executes the correct interrupt handler.The interrupt handler processes the 
+>   keyboard data and lets the keyboard controller know it is ready for more 
+>   data.To provide synchronization, the kernel can disable interrupts—either 
+>   all interrupts or just one specific interrupt number. In many operating 
+>   systems, including Linux, the interrupt handlers do not run in a process 
+>   context. Instead, they run in a special interrupt context that is not 
+>   associated with any process.This special context exists solely to let an 
+>   interrupt handler quickly respond to an interrupt, and then exit.
+

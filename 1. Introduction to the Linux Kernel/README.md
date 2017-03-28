@@ -21,14 +21,6 @@
 > Unix systems thus exhibit clean layering, with a strong separation between policy
 > and mechanism.
 
-## Linux vs Unix
-> Linux is a Unix-like system, but it is not Unix.That is, although Linux 
-> borrows many ideas from Unix and implements the Unix API (as defined by POSIX
-> and the Single Unix Specification), it is not a direct descendant of the Unix
-> source code like other Unix systems. Where desired, it has deviated from the 
-> path taken by other implementations, but it has not forsaken the general 
-> design goals of Unix or broken standardized application interfaces.
-
 ## Application <-> Kernel <-> Hardware
 > **Applications running on the system communicate with the kernel via system calls:** 
 >  * When an application executes a system call, we say that the *kernel is
@@ -53,4 +45,15 @@
 >   context. Instead, they run in a special interrupt context that is not 
 >   associated with any process.This special context exists solely to let an 
 >   interrupt handler quickly respond to an interrupt, and then exit.
+
+## Linux vs Unix
+Linux | Unix
+----- | -----
+Linux is modular design | Unix kernel is typically a monolithic static binary.
+Linux historically has required an MMU, but special versions can actually run without one. | Unix systems typically require a system with a paged memory-management unit (MMU); this hardware enables the system to enforce memory protection and to provide a unique virtual address space to each process.
+Supports the dynamic loading of kernel modules | Can't
+Linux kernel is preemptive | Of the other commercial Unix implementations, Solaris and IRIX have preemptive kernels, but most Unix kernels are not preemptive.
+Does not differentiate between threads and normal processes | May support different threads and processes
+Provides an object-oriented device model with device classes, hot-pluggable events, and a user-space device filesystem (sysfs) | No idea
+Linux is free in every sense of the word | Ummm...
 

@@ -49,11 +49,10 @@
 ## Linux vs Unix
 Linux | Unix
 ----- | -----
-Linux is modular design | Unix kernel is typically a monolithic static binary.
+Linux is monolothic but has modular design | Unix kernel is typically a monolithic static binary.
 Linux historically has required an MMU, but special versions can actually run without one. | Unix systems typically require a system with a paged memory-management unit (MMU); this hardware enables the system to enforce memory protection and to provide a unique virtual address space to each process.
 Supports the dynamic loading of kernel modules | Can't
 Linux kernel is preemptive | Of the other commercial Unix implementations, Solaris and IRIX have preemptive kernels, but most Unix kernels are not preemptive.
 Does not differentiate between threads and normal processes | May support different threads and processes
 Provides an object-oriented device model with device classes, hot-pluggable events, and a user-space device filesystem (sysfs) | No idea
 Linux is free in every sense of the word | Ummm...
-

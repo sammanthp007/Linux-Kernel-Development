@@ -18,8 +18,8 @@
 >     single-purpose programs can be strung together to accomplish tasks of 
 >     increasing complexity. 
 > 
-> > Unix systems thus exhibit clean layering, with a strong separation between policy
-> > and mechanism.
+> Unix systems thus exhibit clean layering, with a strong separation between policy
+> and mechanism.
 
 ## Linux vs Unix
 > Linux is a Unix-like system, but it is not Unix.That is, although Linux 
@@ -28,3 +28,12 @@
 > source code like other Unix systems. Where desired, it has deviated from the 
 > path taken by other implementations, but it has not forsaken the general 
 > design goals of Unix or broken standardized application interfaces.
+
+## Application <-> Kernel <-> Hardware
+> **Applications running on the system communicate with the kernel via system calls:** 
+> When an application executes a system call, we say that the *kernel is
+> executing on behalf of the application.* Furthermore, the application is said 
+> to be *executing a system call in kernel-space*, and the *kernel is running in 
+> process context.* This relationship that applications call into the kernel via 
+> the system call interface is the fundamental manner in which applications 
+> get work done.

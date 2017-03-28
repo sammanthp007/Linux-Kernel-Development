@@ -25,6 +25,6 @@ have a straightforward, even basic, design.
 > Linux is a Unix-like system, but it is not Unix.That is, although Linux 
 > borrows many ideas from Unix and implements the Unix API (as defined by POSIX
 > and the Single Unix Specification), it is not a direct descendant of the Unix
-> source code like other Unix systems.Where desired, it has deviated from the 
-> path taken by other implementations, but it has not forsaken the general 
+> source code like other Unix systems. _Where desired_, it has deviated from the 
+> path taken by other implementations, but it has not **forsaken** the general 
 > design goals of Unix or broken standardized application interfaces.

@@ -37,6 +37,7 @@
 >   process context.* This relationship that applications call into the kernel via 
 >   the system call interface is the fundamental manner in which applications 
 >   get work done.
+>
 > **When hardware wants to communicate with the system, it issues an interrupt 
 > that literally interrupts the processor, which in turn interrupts the kernel:**
 > * A number identifies interrupts and the kernel uses

@@ -31,9 +31,9 @@
 
 ## Application <-> Kernel <-> Hardware
 > **Applications running on the system communicate with the kernel via system calls:** 
-> When an application executes a system call, we say that the *kernel is
-> executing on behalf of the application.* Furthermore, the application is said 
-> to be *executing a system call in kernel-space*, and the *kernel is running in 
-> process context.* This relationship that applications call into the kernel via 
-> the system call interface is the fundamental manner in which applications 
-> get work done.
+>  * When an application executes a system call, we say that the *kernel is
+>   executing on behalf of the application.* Furthermore, the application is said 
+>   to be *executing a system call in kernel-space*, and the *kernel is running in 
+>   process context.* This relationship that applications call into the kernel via 
+>   the system call interface is the fundamental manner in which applications 
+>   get work done.

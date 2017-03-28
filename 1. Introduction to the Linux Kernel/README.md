@@ -1,8 +1,8 @@
 # 1. Introduction to the Linux Kernel
 
-### A handful of characteristics of Unix are at the core of its strength.
+### Handful of characteristics of Unix that are at the core of its strength.
 1. Unix is simple:
-Whereas some operating systems implement thousands of system calls and have 
+    * Whereas some operating systems implement thousands of system calls and have 
 unclear design goals, Unix systems implement only hundreds of system calls and 
 have a straightforward, even basic, design. 
 2. In Unix, everything is a file:

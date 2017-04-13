@@ -206,4 +206,62 @@ Each thread has a unique task_struct and appears to the kernel as a normal
 process; threads just happen to share resources, such as an address space, with
 other processes.
 
+### Create Threads
 
+Create threads using 
+```
+clone(SIGCHLD, 0);
+```
+
+or using `vfork()`
+```
+clone(CLONE_VFORK | CLONE_VM | SIGCHLD, 0);
+```
+
+The flags provided to clone() help specify the behavior of the new process and
+detail what resources the parent and child will share. The clone flags are 
+defined in `<linux/sched.h>`
+
+### Kernel Threads
+
+It is often useful for the kernel to perform some operations in the
+background.The kernel accomplishes this via kernel threads—standard processes
+that exist solely in kernel- space.The significant difference between kernel
+threads and normal processes is that kernel threads do not have an address
+space. (Their mm pointer, which points at their address space, is NULL .) They
+operate only in kernel-space and do not context switch into user-space. Kernel
+threads, however, are schedulable and preemptable, the same as normal
+processes. 
+
+Kernel threads are created on system boot by other kernel threads. Indeed, a
+kernel thread can be created only by another kernel thread. The kernel handles
+this automatically by forking all new kernel threads off of the *kthreadd*
+kernel process. 
+
+## Process Termination
+
+* Self induced:
+
+    When they run `exit()` system call
+
+* Involunterily:
+
+    When a process receives a signal or exception it cannot handle or ignore.
+
+The main code for termination is done by `do_exit()` defined in `kernel/exit.c`
+
+> After do_exit(), the process exits but it is in zombie mode
+
+Now the kernel needs to clean up i.e remove its process descriptor. To
+deallocate the process descriptor, kernel needs to use `release_task()`.
+
+And to make sure no process goes without a parent, or else they will be in
+zombie mode forever, during termination of all processes, their children are 
+reparented to either another process in the current thread group or to the 
+`init` process.
+
+> `do_exit()` calls `exit_notify()` , which calls `forget_original_parent()`,
+> which, in turn, calls `find_new_reaper()` to perform the reparenting
+
+> The init process routinely calls `wait()` on its children to remove all
+> zombie processes

@@ -74,9 +74,30 @@ be found at /linux/include/
     }
     ```
 * The kernel lacks the memory protection afforded to user-space.
-> 
+> Memory violations in the kernel result in an oops, which is a major kernel
+> error. Additionally, kernel memory is not pageable.Therefore, every byte of
+> memory you consume is one less byte of available physical memory. Keep that
+> in mind the next time you need to add one more feature to the kernel!
 * The kernel cannot easily execute floating-point operations.
+> What the kernel has to do when using floating point instructions varies by
+> architecture, but the kernel normally catches a trap and then initiates the
+> transition from integer to floating point mode. Unlike user-space, the kernel
+> does not have the luxury of seamless support for floating point because it
+> cannot easily trap itself. Using a floating point inside the kernel requires
+> manually saving and restoring the floating point registers, among other
+> possible chores.
 * The kernel has a small per-process fixed-size stack.
+> The kernel stack is neither large nor dynamic; it is small and fixed in
+> size.The exact size of the kernel’s stack varies by architecture. On x86, the
+> stack size is configurable at compile-time and can be either 4KB or 8KB.
+> Historically, the kernel stack is two pages, which generally implies that it
+> is 8KB on 32-bit architectures and 16KB on 64-bit architectures—this size is
+> fixed and absolute.
 * Because the kernel has asynchronous interrupts, is preemptive, and supports SMP, 
 synchronization and concurrency are major concerns within the kernel.
+> Linux is a preemptive multitasking operating system
+> Linux supports symmetrical multiprocessing (SMP).
 * Portability is important.
+> architecture-independent C code must correctly compile and run on a wide range of systems, and that architecture-dependent code must be properly segregated in system-specific directories in the kernel source tree.
+
+

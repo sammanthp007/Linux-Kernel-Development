@@ -55,14 +55,16 @@ be found at /linux/include/
 > are the only two that have enough extensions to ANSI C that Kernel uses for
 > compilation.
 
-Some difference between ANSI C and GNU C are:
+    Some difference between ANSI C and GNU C are:
     * Inline Function, e.g `static inline void bark(unsigned long dog)`
+    
     * Inline Assembly, e.g
     ```
     unsigned int low, high;
     asm volatile("rdtsc" : "=a" (low), "=d" (high));
     /* low and high now contain the lower and upper 32-bits of the 64-bit tsc */
     ```
+    
     * Branch Annotation
     ```
     /* we predict 'error' is nearly always zero ... */

@@ -42,4 +42,17 @@ usr | Early user-space code (called initramfs)
 tools | Tools helpful for developing Linux
 virt | Virtualization infrastructure
 
+> The Linux Kernel Source Tree can be found in /linux directory
 
+## Linux Kernel is different than other user space programs by:
+* The kernel has access to neither the C library nor the standard C headers.
+> But you can use the needed libraries implemented within the Kernel. They can
+be found at /linux/include/
+> e.g #include <linux/string.h>
+* The kernel is coded in GNU C.
+* The kernel lacks the memory protection afforded to user-space.
+* The kernel cannot easily execute floating-point operations.
+* The kernel has a small per-process fixed-size stack.
+* Because the kernel has asynchronous interrupts, is preemptive, and supports SMP, 
+synchronization and concurrency are major concerns within the kernel.
+* Portability is important.

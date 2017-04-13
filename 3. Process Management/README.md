@@ -183,20 +183,27 @@ for_each_process(task) {
 
 * `fork()`:
 
-The `fork()`, `vfork()` , and `__clone()` library calls all invoke the `clone()`
-system call with the requisite flags.The clone() system call, in turn, calls
-`do_fork()`.
-
-The bulk of the work in forking is handled by do_fork() , which is defined in
-kernel/fork.c .This function calls copy_process() and then starts the process
-running. The interesting work is done by copy_process()
+    The `fork()`, `vfork()` , and `__clone()` library calls all invoke the `clone()`
+    system call with the requisite flags.The clone() system call, in turn, calls
+    `do_fork()`.
+    
+    The bulk of the work in forking is handled by do_fork() , which is defined in
+    kernel/fork.c .This function calls copy_process() and then starts the process
+    running. The interesting work is done by copy_process()
 
 * `vfork()`:
 
-The vfork() system call has the same effect as fork() , except that the page
-table entries of the parent process are not copied. Instead, the child executes
-as the sole thread in the parent’s address space, and the parent is blocked
-until the child either calls exec() or exits. The child is not allowed to write
-to the address space. 
+    The vfork() system call has the same effect as fork() , except that the page
+    table entries of the parent process are not copied. Instead, the child executes
+    as the sole thread in the parent’s address space, and the parent is blocked
+    until the child either calls exec() or exits. The child is not allowed to write
+    to the address space. 
+
+
+## Thread Implementation
+
+Each thread has a unique task_struct and appears to the kernel as a normal 
+process; threads just happen to share resources, such as an address space, with
+other processes.
 
 

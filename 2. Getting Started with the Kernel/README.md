@@ -50,12 +50,13 @@ virt | Virtualization infrastructure
 be found at /linux/include/
 > e.g #include <linux/string.h>
 * The kernel is coded in GNU C.
-> Kernel does not use strict ANSI C but instead uses ISO C99 and GNU C
-> extensions, which can only be compiled by gcc and Intel C compiler as these
-> are the only two that have enough extensions to ANSI C that Kernel uses for
-> compilation.
+    > Kernel does not use strict ANSI C but instead uses ISO C99 and GNU C
+    > extensions, which can only be compiled by gcc and Intel C compiler as these
+    > are the only two that have enough extensions to ANSI C that Kernel uses for
+    > compilation.
 
     Some difference between ANSI C and GNU C are:
+    
     * Inline Function, e.g `static inline void bark(unsigned long dog)`
     
     * Inline Assembly, e.g

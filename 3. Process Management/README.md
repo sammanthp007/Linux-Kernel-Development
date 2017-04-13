@@ -92,7 +92,7 @@ The process is runnable; it is either currently running or on a run-queue
 waiting to run (runqueues are discussed in Chapter 4).This is the only possible
 state for a process executing in user-space; it can also apply to a process in
 kernel-space that is actively running.
-* TASK_INTERRUPTIBLE`
+* `TASK_INTERRUPTIBLE`
 The process is sleeping (that is, it is blocked), waiting for some condition to
 exist .When this condition exists, the kernel sets the process’s state to
 TASK_RUNNING .The process also awakes prematurely and becomes runnable if it
@@ -116,5 +116,87 @@ run.This occurs if the task receives the `SIGSTOP` , `SIGTSTP` , `SIGTTIN` , or
 set_task_state(task, state);
 /* set task ‘task’ to state ‘state’ */
 ```
+
+## Process Context
+
+For a process, its executing program code is read in from an executable file
+and executed within the program’s address space. Normal program execution
+occurs in user-space. When a program executes a system call or triggers an
+exception, it enters kernel-space.At this point, the kernel is said to be
+“executing on behalf of the process” and is in **process context**.
+
+> All access to the kernel is through either System Calls or exception handler
+
+### Process Family Tree
+
+All processes are descendants of the `init` process, whose **PID is one**.The
+kernel starts init in the last step of the boot process.
+
+Obtain Parent:
+```
+struct task_struct *my_parent = current->parent;
+```
+
+Iterate over a process’s children
+```
+list_for_each(list, &current->children) {
+    task = list_entry(list, struct task_struct, sibling);
+    /* task now points to one of current’s children */
+}
+```
+
+> The init task’s process descriptor is statically allocated as `init_task`
+
+Go to init from current
+```
+struct task_struct *task;
+for (task = current; task != &init_task; task = task->parent);
+    /* do smt */
+/* task now points to init */
+```
+
+Because the task list is a circular, doubly linked list, to obtain the next
+task in the list, given any valid task:
+```
+list_entry(task->tasks.next, struct task_struct, tasks)
+/* or use the following macro */
+next_task(task)
+```
+
+To obtain previous task in the list:
+```
+list_entry(task->tasks.prev, struct task_struct, tasks)
+/* or use the following macro */
+prev_task(task)
+```
+
+Another way to iterate:
+```
+struct task_struct *task;
+for_each_process(task) {
+    /* this pointlessly prints the name and PID of each task */
+    printk(“%s[%d]\n”, task->comm, task->pid);
+}
+```
+
+## Process Creation
+
+* `fork()`:
+
+The `fork()`, `vfork()` , and `__clone()` library calls all invoke the `clone()`
+system call with the requisite flags.The clone() system call, in turn, calls
+`do_fork()`.
+
+The bulk of the work in forking is handled by do_fork() , which is defined in
+kernel/fork.c .This function calls copy_process() and then starts the process
+running. The interesting work is done by copy_process()
+
+* `vfork()`:
+
+The vfork() system call has the same effect as fork() , except that the page
+table entries of the parent process are not copied. Instead, the child executes
+as the sole thread in the parent’s address space, and the parent is blocked
+until the child either calls exec() or exits. The child is not allowed to write
+to the address space. 
 
 
